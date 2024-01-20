@@ -15,7 +15,7 @@ transform = transforms.Compose([transforms.ToTensor(),
 ```
 
 ## Dataset
-Used FashionMNIST, default split on train and test, val_size from test split 0.8. 
+Used FashionMNIST, default train_test_split, val_size from test split 0.8. 
 
 ## Results
 ### Vanilla AutoEncoder 
