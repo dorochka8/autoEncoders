@@ -1,3 +1,7 @@
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
 class SparseEncoder(nn.Module):
   def __init__(self, input_size, hidden_size, output_size, coef_l1):
     super().__init__()
