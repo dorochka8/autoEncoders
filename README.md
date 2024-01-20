@@ -13,11 +13,17 @@ Evaluation MSE 1527.023.
   <img
     src="https://github.com/dorochka8/autoEncoders/assets/97133490/06ce8c3d-42de-43f3-a083-01d978c5f5bf"
     title="TrainLossVanilla"
-    style="display: inline-block; margin: 0 auto; width: 500px">
+    style="display: inline-block; margin: 0 auto; width: 500px"
+    align="center" 
+    height="350"
+  >
   <img
     src="https://github.com/dorochka8/autoEncoders/assets/97133490/3653c514-93ff-4f0c-b87c-3ecb034379f9"
     title="ExampleFromEvaluationVanilla"
-    style="display: inline-block; margin: 0 auto; width: 500px">
+    style="display: inline-block; margin: 0 auto; width: 500px"
+    align="center" 
+    height="350"
+  >
 </p>
 
 ### Multilayer AutoEncoder 
@@ -45,11 +51,17 @@ Evaluation MSE 1369.393.
   <img
     src="https://github.com/dorochka8/autoEncoders/assets/97133490/449b5f0a-e2ec-468c-aca0-570139adc7d9"
     title="TrainLossConvolutional"
-    style="display: inline-block; margin: 0 auto; width: 500px">
+    style="display: inline-block; margin: 0 auto; width: 500px"
+    align="center" 
+    height="350"
+  >
   <img
     src="https://github.com/dorochka8/autoEncoders/assets/97133490/193d96e9-4d25-4c71-8683-97546114ec8d"
     title="ExampleFromEvaluationConvolutional"
-    style="display: inline-block; margin: 0 auto; width: 500px">
+    style="display: inline-block; margin: 0 auto; width: 500px"
+    align="center" 
+    height="350"
+  >
 </p>
 
 
