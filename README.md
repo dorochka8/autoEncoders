@@ -1,16 +1,22 @@
 # autoEncoders
 from Vanilla to Graph AutoEncoder
 
-Models are in `encoders` folder. Train loop, evaluation and sampling (VAE, gVAE) in `main.py`. 
+Models are in **encoders** folder. Train loop, evaluation and sampling (VAE, gVAE) in **main.py**. 
 
 ## Dataset
-Used FashionMNIST, default split on train and test, val_size from test split 0.8. As an example to show the differences between the models, class "Sneaker" was chosen. Models (except VAE) were trained on 1 epoch with default settings of `torch.optim.Adam()` optimiser and `nn.MSELoss()` loss. 
+Used FashionMNIST, default split on train and test, val_size from test split 0.8. As an example to show the differences between the models, class "Sneaker" was chosen. Models (except VAE) trained 1 epoch with default settings of `torch.optim.Adam()` optimiser and `nn.MSELoss()` loss. 
 
-In RESULTS sesction provided SETUPs for models, results of training and evaluating, examples of reconstructing images. 
+In RESULTS sesction provided SETUPs for models, results of training and evaluating, examples of reconstructing images. The results of the experiments are written in double manner:
+**without | with** transforms of the dataset images, where transforms are: 
+```
+transform = transforms.Compose([transforms.ToTensor(),
+                                transforms.Normalize(mean=0, std=1),
+                               ])
+```
 
 ## Results
 ### Vanilla AutoEncoder 
-Evaluation MSE 1527.023. hidden_size=64, train_mode='any'.
+Evaluation MSE **1527.023 | 0.0243**. hidden_size=64, train_mode='any'.
 <p float="left">
   <img
     src="https://github.com/dorochka8/autoEncoders/assets/97133490/06ce8c3d-42de-43f3-a083-01d978c5f5bf"
@@ -29,7 +35,7 @@ Evaluation MSE 1527.023. hidden_size=64, train_mode='any'.
 </p>
 
 ### Multilayer AutoEncoder 
-Evaluation MSE 1268.625. hidden_size=128, coder_size=64, train_mode='any'.
+Evaluation MSE **1268.625 | 0.0192**. hidden_size=128, coder_size=64, train_mode='any'.
 <p float="left">
   <img
     src="https://github.com/dorochka8/autoEncoders/assets/97133490/e2f3298f-1c64-483f-ae7b-42cc8f33134d"
@@ -48,7 +54,7 @@ Evaluation MSE 1268.625. hidden_size=128, coder_size=64, train_mode='any'.
 </p>
 
 ### Convolutional AutoEncoder 
-Evaluation MSE 1369.393. input_size=1, train_mode='any'.
+Evaluation MSE **1369.393 | 0.0172**. input_size=1, train_mode='any'.
 <p float="left">
   <img
     src="https://github.com/dorochka8/autoEncoders/assets/97133490/449b5f0a-e2ec-468c-aca0-570139adc7d9"
@@ -67,7 +73,7 @@ Evaluation MSE 1369.393. input_size=1, train_mode='any'.
 </p>
 
 ### Sparse AutoEncoder 
-Evaluation MSE 1457.481. l1_coef=10e-5, hidden_size=64, train_mode='sparse'.
+Evaluation MSE **1457.481 | 0.0331**. l1_coef=10e-5, hidden_size=64, train_mode='sparse'.
 <p float="left">
   <img
     src="https://github.com/dorochka8/autoEncoders/assets/97133490/00d58c3d-af4d-4c96-ba71-4a1ae3fe2daf"
@@ -86,7 +92,7 @@ Evaluation MSE 1457.481. l1_coef=10e-5, hidden_size=64, train_mode='sparse'.
 </p>
 
 ### Denoising AutoEncoder 
-Evaluation MSE 270.227. input_size=1, train_mode='any'.
+Evaluation **MSE 270.227 | 0.0039**. input_size=1, train_mode='any'.
 <p float="left">
   <img
     src="https://github.com/dorochka8/autoEncoders/assets/97133490/61df8dbc-66ab-4da1-8155-6fa79c44d406"
