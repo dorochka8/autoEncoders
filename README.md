@@ -1,7 +1,7 @@
 # autoEncoders
 from Vanilla to Graph AutoEncoder
 
-Models are in `encoders` folder. Train loop, evaluation and sampling (VAE, gVAE) in `main` folder. 
+Models are in `encoders` folder. Train loop, evaluation and sampling (VAE, gVAE) in `main.py`. 
 
 ## Dataset
 Used FashionMNIST, default split on train and test, val_size from test split 0.8. 
