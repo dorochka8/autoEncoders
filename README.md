@@ -67,7 +67,7 @@ Evaluation MSE 1369.393. input_size=1, train_mode='any'.
 </p>
 
 ### Sparse AutoEncoder 
-Evaluation MSE 1457.481. l1 coefficient=10e-5, hidden_size=64, train_mode='sparse'.
+Evaluation MSE 1457.481. l1_coef=10e-5, hidden_size=64, train_mode='sparse'.
 <p float="left">
   <img
     src="https://github.com/dorochka8/autoEncoders/assets/97133490/00d58c3d-af4d-4c96-ba71-4a1ae3fe2daf"
@@ -85,6 +85,24 @@ Evaluation MSE 1457.481. l1 coefficient=10e-5, hidden_size=64, train_mode='spars
   >
 </p>
 
+### Denoising AutoEncoder 
+Evaluation MSE 270.227. input_size=1, train_mode='any'.
+<p float="left">
+  <img
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/61df8dbc-66ab-4da1-8155-6fa79c44d406"
+    title="TrainLossDenoising"
+    style="display: inline-block; margin: 0 auto; width: 45%"
+    align="center" 
+    height="300"
+  >
+  <img
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/5eb53285-76fe-42e8-95ee-fe4d24fa879a"
+    title="ExampleFromEvaluationDenoising"
+    style="display: inline-block; margin: 0 auto; width: 45%"
+    align="center"
+    height="300"
+  >
+</p>
 
 
 
