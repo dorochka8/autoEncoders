@@ -1,3 +1,6 @@
+import torch.nn as nn
+import torch.nn.functional as F
+
 class MultilayerAutoencoder(nn.Module):
   def __init__(self, input_size, hidden_size, code_size):
     super().__init__()
