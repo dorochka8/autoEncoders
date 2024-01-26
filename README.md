@@ -13,6 +13,7 @@ transform = transforms.Compose([transforms.ToTensor(),
                                 transforms.Normalize(mean=0, std=1),
                                ])
 ```
+### Results overview 
 |**Auto Encoders**||||||
 |:---:    | :---:   |      :---:     |    :---:      |  :---: |      :---:    |
 |model    | Vanilla |   Multilayer   | Convolutional | Sparse | **Denoising** |
