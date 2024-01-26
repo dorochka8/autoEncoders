@@ -13,6 +13,15 @@ transform = transforms.Compose([transforms.ToTensor(),
                                 transforms.Normalize(mean=0, std=1),
                                ])
 ```
+|**Auto Encoders**||||||
+|:---:    | :---:   |      :---:     |    :---:      |  :---: |      :---:    |
+|model    | Vanilla |   Multilayer   | Convolutional | Sparse | **Denoising** |
+|mean loss| 0.0243  |     0.0192     |     0.0172    | 0.0331 |   **0.0039**  |
+|**Variational Auto Encoders**|
+|model    | Vanilla | Convolutional |     Graph     |        |           |
+|mean loss| 0.0000  |    0.0000     |     0.0000    | 0.0000 |   0.0000  |
+
+
 
 ## Dataset
 Used FashionMNIST, default train_test_split, val_size from test split 0.8. 
@@ -57,6 +66,7 @@ Evaluation MSE **1268.625 | 0.0192**. hidden_size=128, coder_size=64, train_mode
 </p>
 
 ### Convolutional AutoEncoder 
+It was made quite simple. Used only `nn.Conv2d`, and `nn.MaxPool2d` and `nn.Upsample` for encoder and decoder respectively. 
 Evaluation MSE **1369.393 | 0.0172**. input_size=1, train_mode='any'.
 <p float="left">
   <img
@@ -114,8 +124,22 @@ Evaluation **MSE 270.227 | 0.0039**. input_size=1, train_mode='any'.
 </p>
 
 ### VariationalAutoEncoder 
+Added KL divergence to the total loss (acc. to https://arxiv.org/pdf/1312.6114.pdf, p.10 *Gaussian Case*). 
+```
+  KLD = -0.5 * torch.sum(1 + log_var - mu.pow(2) - log_var.exp())
+```
+Also the validity of MSE was increased 5 times.  All the experiments were done on normalized data, and another train function for batched data. 
+
 
 ### Convolutional VariationalAutoEncoder 
-Key observation: in encoder, when one convolves input, immediately increase the number of *out_channels* in the very first convolutional layer, to have better resuls. Doing *in_channels=1, out_channels=16* gives significantly better results, than *in_channels=1, out_channels=3*.
+Key observation: in encoder, when one convolves input, immediately increase the number of *out_channels* in the very first convolutional layer, to have better resuls. Doing *in_channels=1, out_channels=16* gives significantly better results, than *in_channels=1, out_channels=3*. \
+Evaluation **MSE 0.0000**. input_size=1, hidden_size=256, epochs=20. 
+
+
+
+
+
+ 
+
 
 
