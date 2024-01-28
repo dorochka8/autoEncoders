@@ -6,7 +6,7 @@ from Vanilla to Graph AutoEncoder
 Models are in **encoders** folder. Train loop, evaluation and sampling (VAE, gVAE) in **main.py**. \
 To show the differences between models, class "Sneaker" was chosen as an example. Models (except VAE) trained 1 epoch with default settings of `torch.optim.Adam()` optimizer and `nn.MSELoss()` loss. 
 
-In RESULTS sesction provided SETUPs for models, results of training and evaluating, examples of reconstructing images, key observations and more. The results of the experiments are written in double manner:
+In RESULTS section provided SETUPs for models, results of training and evaluating, examples of reconstructing images while training, key observations and more. The results of the experiments are written in double manner:
 **without | with** transforms of the dataset images, where transforms are: 
 ```
 transform = transforms.Compose([transforms.ToTensor(),
