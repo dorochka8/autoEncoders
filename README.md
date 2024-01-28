@@ -133,7 +133,7 @@ Also the validity of MSE was increased 5 times.  All the experiments were done o
 
 
 ### Convolutional VariationalAutoEncoder 
-Key observation: in encoder, when one convolves input, immediately increase the number of *out_channels* in the very first convolutional layer, to have better resuls. Doing *in_channels=1, out_channels=16* gives significantly better results, than *in_channels=1, out_channels=3*. \
+Key observation: in encoder, when one convolves input, immediately increase the number of *out_channels* in the very first convolutional layer, to have better resuls. Doing *in_channels=1, out_channels=16* gives significantly better results, than *in_channels=1, out_channels=3*. Scheduler is not helping in here.\
 Evaluation **MSE 0.0000**. input_size=1, hidden_size=256, epochs=20. 
 
 
