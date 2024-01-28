@@ -36,14 +36,14 @@ Evaluation MSE **1527.023 | 0.0243**. hidden_size=64, train_mode='any'.
     title="TrainLossVanilla"
     style="display: inline-block; margin: 0 auto; width: 45%"
     align="center" 
-    height="300"
+    height=45%
   >
   <img
     src="https://github.com/dorochka8/autoEncoders/assets/97133490/3653c514-93ff-4f0c-b87c-3ecb034379f9"
     title="ExampleFromEvaluationVanilla"
     style="display: inline-block; margin: 0 auto; width: 45%"
     align="center" 
-    height="300"
+    height=45%
   >
 </p>
 
@@ -55,14 +55,14 @@ Evaluation MSE **1268.625 | 0.0192**. hidden_size=128, coder_size=64, train_mode
     title="TrainLossMultilayer"
     style="display: inline-block; margin: 0 auto; width: 45%"
     align="center" 
-    height="300"
+    height=45%
   >
   <img
     src="https://github.com/dorochka8/autoEncoders/assets/97133490/fbbe7117-1df2-4019-8d2d-5a1d8dba3e51"
     title="ExampleFromEvaluationMultilayer"
     style="display: inline-block; margin: 0 auto; width: 45%"
     align="center" 
-    height="300"
+    height=45%
   >
 </p>
 
@@ -75,14 +75,14 @@ Evaluation MSE **1369.393 | 0.0172**. input_size=1, train_mode='any'.
     title="TrainLossConvolutional"
     style="display: inline-block; margin: 0 auto; width: 45%"
     align="center" 
-    height="300"
+    height=45%
   >
   <img
     src="https://github.com/dorochka8/autoEncoders/assets/97133490/193d96e9-4d25-4c71-8683-97546114ec8d"
     title="ExampleFromEvaluationConvolutional"
     style="display: inline-block; margin: 0 auto; width: 45%"
     align="center" 
-    height="300"
+    height=45%
   >
 </p>
 
@@ -94,14 +94,14 @@ Evaluation MSE **1457.481 | 0.0331**. l1_coef=10e-5, hidden_size=64, train_mode=
     title="TrainLossSparse"
     style="display: inline-block; margin: 0 auto; width: 45%"
     align="center" 
-    height="300"
+    height=45%
   >
   <img
     src="https://github.com/dorochka8/autoEncoders/assets/97133490/159b02c1-afa1-4ed8-9579-8010937fcc88"
     title="ExampleFromEvaluationSparse"
     style="display: inline-block; margin: 0 auto; width: 45%"
     align="center" 
-    height="300"
+    height=45%
   >
 </p>
 
@@ -113,14 +113,14 @@ Evaluation **MSE 270.227 | 0.0039**. input_size=1, train_mode='any'.
     title="TrainLossDenoising"
     style="display: inline-block; margin: 0 auto; width: 45%"
     align="center" 
-    height="300"
+    height=45%
   >
   <img
     src="https://github.com/dorochka8/autoEncoders/assets/97133490/5eb53285-76fe-42e8-95ee-fe4d24fa879a"
     title="ExampleFromEvaluationDenoising"
     style="display: inline-block; margin: 0 auto; width: 45%"
     align="center"
-    height="300"
+    height=45%
   >
 </p>
 
