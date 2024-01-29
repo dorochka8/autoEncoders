@@ -129,8 +129,18 @@ Added KL divergence to the total loss (acc. to https://arxiv.org/pdf/1312.6114.p
 ```
   KLD = -0.5 * torch.sum(1 + log_var - mu.pow(2) - log_var.exp())
 ```
-Also the validity of MSE was increased 5 times.  All the experiments were done on normalized data, and another train function for batched data. 
-
+All the experiments were done on normalized data, and another train function for batched data. 
+Evaluation **MSE 0.0000**. input_size=0, batch_size=000, hidden_size=00, epochs=20. 
+Sampling from latent space: 
+```
+num_samplings = 1 
+samples = model.sampling(num_samplings).detach().cpu()
+for sample in samples:
+  plt.imshow(sample.reshape(28, 28))
+  plt.show()
+  clear_output(wait=True)
+```
+RESULTS //////////
 
 ### Convolutional VariationalAutoEncoder 
 Key observation: in encoder, when one convolves input, immediately increase the number of *out_channels* in the very first convolutional layer, to have better resuls. Doing *in_channels=1, out_channels=32* gives significantly better results, than gradually increasing number of channels *in_channels=1, out_channels=3*. Scheduler is not helping in here.\
@@ -151,5 +161,42 @@ Evaluation **MSE 415.2351**. input_size=1, batch_size=125, hidden_size=32, epoch
     height=45%
   >
 </p>
-
+# Sampling from latent space: 
+<p float="left">
+  <img
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/af156466-3d35-4bc7-8c96-c4949ee289ee"
+    title="sample1ConvolutionalVAE"
+    style="display: inline-block; margin: 0 auto; width: 15%"
+    align="center" 
+    height=15%
+  >
+  <img
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/c4f4bffd-e135-4a9c-927c-7a5d8ca73610"
+    title="sample2ConvolutionalVAE"
+    style="display: inline-block; margin: 0 auto; width: 15%"
+    align="center" 
+    height=15%
+  >
+  <img
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/4b794231-3a01-4de2-bede-4825d5ce664f"
+    title="sample3ConvolutionalVAE"
+    style="display: inline-block; margin: 0 auto; width: 15%"
+    align="center" 
+    height=15%
+  >
+  <img
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/e1135d33-d2ce-4b4c-b551-758293f197a3"
+    title="sample4ConvolutionalVAE"
+    style="display: inline-block; margin: 0 auto; width: 15%"
+    align="center" 
+    height=15%
+  >
+  <img
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/804d3103-6295-4710-a91a-8b6b19bd324e"
+    title="sample5ConvolutionalVAE"
+    style="display: inline-block; margin: 0 auto; width: 15%"
+    align="center" 
+    height=15%
+  >
+</p>
 
