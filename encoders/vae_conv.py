@@ -1,6 +1,8 @@
 import torch
 import torch.nn as nn 
 
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
 class ConvVAE(nn.Module):
   def __init__(self, in_channels, latent_space, batch_size):
     super().__init__()
