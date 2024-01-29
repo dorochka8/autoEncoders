@@ -5,7 +5,15 @@ import matplotlib.pyplot as plt
 from IPython.display import clear_output
 
 
-def train(model, trainer, optimizer, loss_fn, mode='any', validator=None, epochs=None, ):
+def train(model, 
+          trainer, 
+          optimizer,
+          loss_fn, 
+          mode='any', 
+          validator=None, 
+          epochs=None,     # for batched data
+          batch_size=None  # to flatten input in loss function in vanilla VAE
+         ):
   """
   mode: 
         --- any ---- if vanilla AE, multilayer AE, convolutional AE, denoising AE (default)
@@ -26,7 +34,12 @@ def train(model, trainer, optimizer, loss_fn, mode='any', validator=None, epochs
         optimizer.zero_grad()
         data = batch[0].type(torch.float).to(device)
         decoded_data, mu, log_var = model(data)
-        loss = vae_loss_fn(data, decoded_data, mu, log_var)
+        
+        if decoded_data.shape[1] == data.size(2) * data.size(3):
+          loss = loss_fn(data, decoded_data, mu, log_var, flatten=True, batch_size=batch_size)
+        else:
+          loss = loss_fn(data, decoded_data, mu, log_var)
+          
         epoch_loss += loss.item() 
         total_loss.append(loss.item())
         if (i % 500) == 0:
@@ -46,7 +59,12 @@ def train(model, trainer, optimizer, loss_fn, mode='any', validator=None, epochs
         for j, batch in enumerate(validator):
           x, y = batch[0].type(torch.float).to(device), batch[1]
           decoded_data_val, mu_val, log_var_val = model(x)
-          loss = vae_loss_fn(decoded_data_val, x, mu_val, log_var_val)
+          
+          if decoded_data.shape[1] == data.size(2) * data.size(3):
+            loss = loss_fn(data, decoded_data, mu, log_var, flatten=True, batch_size=batch_size)
+          else:
+            loss = loss_fn(data, decoded_data, mu, log_var)
+        
           mean_acc.append(loss.item())
           if (j % 200) == 0:
             drawing(x[0, 0, :, :].reshape(28, 28).cpu().detach().numpy(),
@@ -113,7 +131,11 @@ def drawing(x, y, output, acc):
   clear_output(wait=True)
 
 
-def vae_loss_fn(x, decoded_data, mu, log_var):
+def vae_loss_fn(x, decoded_data, mu, log_var, flatten=False, batch_size=None):
+  if flatten:
+    x = x.view(batch_size, -1)
+    decoded_data = decoded_data.view(batch_size, -1)
+  
   mse_loss = nn.MSELoss(reduction='sum')
   MSE = mse_loss(decoded_data, x)
   KLD = torch.mean(-0.5 * torch.sum(1 + log_var - mu.pow(2) - log_var.exp(), dim=1), dim=0)
