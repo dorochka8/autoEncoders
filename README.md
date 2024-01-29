@@ -25,27 +25,28 @@ In RESULTS section provided SETUPs for models, results of training (train loss p
 |**Variational Auto Encoders**|
 |model    | Vanilla | Convolutional |     Graph     |        |           |
 |mean loss|896.8881 |    415.2351   |     0.0000    | 0.0000 |   0.0000  |
-
-# Results
-## AutoEncoders 
-### Vanilla AutoEncoder 
-Evaluation MSE **1527.023 | 0.0243**. hidden_size=64, train_mode='any'.
 <p float="left">
   <img
-    src="https://github.com/dorochka8/autoEncoders/assets/97133490/06ce8c3d-42de-43f3-a083-01d978c5f5bf"
-    title="TrainLossVanilla"
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/f62596ba-2d0d-4cd1-a35a-a689fc9e9952"
+    title="ComparisonAE"
     style="display: inline-block; margin: 0 auto; width: 45%"
     align="center" 
     height=45%
   >
   <img
-    src="https://github.com/dorochka8/autoEncoders/assets/97133490/3653c514-93ff-4f0c-b87c-3ecb034379f9"
-    title="ExampleFromEvaluationVanilla"
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/fc4c72cf-5e2b-4038-9b83-46ddd56e2c5c"
+    title="ComparisonVAE"
     style="display: inline-block; margin: 0 auto; width: 45%"
     align="center" 
     height=45%
   >
 </p>
+
+# Results
+## AutoEncoders 
+### Vanilla AutoEncoder 
+Evaluation MSE **1527.023 | 0.0243**. hidden_size=64, train_mode='any'.
+c
 
 ### Multilayer AutoEncoder 
 Evaluation MSE **1268.625 | 0.0192**. hidden_size=128, coder_size=64, train_mode='any'.
