@@ -85,9 +85,9 @@ class VAE(nn.Module):
   def sampling(self, samples):
     with torch.no_grad():
       z = torch.randn(samples, *self.origin_shape[1:]).to(device)
-      x = self.decoder0(z)
+      x = self.decoder1(z)
       x = self.decoder_unpool(x, self.idx2[:samples, :, :, :])
-      x = self.decoder1(x)
+      x = self.decoder2(x)
       x = self.decoder_unpool(x, self.idx1[:samples, :, :, :])
-      decoded = self.decoder2(x)
+      decoded = self.decoder3(x)
     return decoded
