@@ -131,7 +131,8 @@ Added KL divergence to the total loss (acc. to https://arxiv.org/pdf/1312.6114.p
 ```
 All the experiments were done on normalized data, and another train function for batched data. 
 Evaluation **MSE 0.0000**. input_size=0, batch_size=000, hidden_size=00, epochs=20. 
-Sampling from latent space: 
+
+#### Sampling from latent space: 
 ```
 num_samplings = 1 
 samples = model.sampling(num_samplings).detach().cpu()
@@ -161,7 +162,8 @@ Evaluation **MSE 415.2351**. input_size=1, batch_size=125, hidden_size=32, epoch
     height=45%
   >
 </p>
-# Sampling from latent space: 
+
+#### Sampling from latent space: 
 <p float="left">
   <img
     src="https://github.com/dorochka8/autoEncoders/assets/97133490/af156466-3d35-4bc7-8c96-c4949ee289ee"
