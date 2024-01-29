@@ -1,4 +1,4 @@
-# AutoEncoders: From Vanilla to Graph AutoEncoder
+# AutoEncoders: From Vanilla to Convolutional VAE
 
 ## Overview
 This project explores the abilities of AutoEncoders, using FashionMNIST dataset with default train_test_split, and where the size of the validation part is a 0.8th part from test split. Models are organized in **encoders** folder, with the training loop, evaluation and sampling in **main.py**. 
