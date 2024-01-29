@@ -3,8 +3,7 @@ from Vanilla to Graph AutoEncoder
 
 
 ## Overview
-
-Used FashionMNIST, default train_test_split, val_size from test split 0.8. Models are in **encoders** folder. Train loop, evaluation and sampling (AE, VAE) in **main.py**. 
+Used FashionMNIST, default train_test_split, val_size from test split 0.8. Models are in **encoders** folder. Train loop, evaluation and sampling in **main.py**. 
 ### AE
 To show the differences between models, class "Sneaker" was chosen as an example. Models are trained 1 epoch with default settings of `torch.optim.Adam()` optimizer and `nn.MSELoss()` loss. The results of the experiments are written in double manner:
 **without | with** transforms of the dataset, where transforms are: 
@@ -25,9 +24,10 @@ In RESULTS section provided SETUPs for models, results of training (train loss p
 |mean loss| 0.0243  |     0.0192     |     0.0172    | 0.0331 |   **0.0039**  |
 |**Variational Auto Encoders**|
 |model    | Vanilla | Convolutional |     Graph     |        |           |
-|mean loss| 0.0000  |    415.2351   |     0.0000    | 0.0000 |   0.0000  |
+|mean loss|896.8881 |    415.2351   |     0.0000    | 0.0000 |   0.0000  |
 
-## Results
+# Results
+## AutoEncoders 
 ### Vanilla AutoEncoder 
 Evaluation MSE **1527.023 | 0.0243**. hidden_size=64, train_mode='any'.
 <p float="left">
@@ -124,13 +124,29 @@ Evaluation **MSE 270.227 | 0.0039**. input_size=1, train_mode='any'.
   >
 </p>
 
-### VariationalAutoEncoder 
+## VariationalAutoEncoders 
 Added KL divergence to the total loss (acc. to https://arxiv.org/pdf/1312.6114.pdf, p.10 *Gaussian Case*). 
 ```
   KLD = -0.5 * torch.sum(1 + log_var - mu.pow(2) - log_var.exp())
 ```
 All the experiments were done on normalized data, and another train function for batched data. 
-Evaluation **MSE 0.0000**. input_size=0, batch_size=000, hidden_size=00, epochs=20. 
+Evaluation **MSE 896.8881**. input_size=784, batch_size=125, hidden_size=32, epochs=20. 
+<p float="left">
+  <img
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/11c1365d-7c8c-42c8-a6d8-632c8c686f0e"
+    title="TrainLossConvolutionalVAE"
+    style="display: inline-block; margin: 0 auto; width: 45%"
+    align="center" 
+    height=45%
+  >
+  <img
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/1571c21c-279c-4938-bb9f-3bf4f07ff9e3"
+    title="ExampleFromEvaluationConvolutionalVAE"
+    style="display: inline-block; margin: 0 auto; width: 45%"
+    align="center" 
+    height=45%
+  >
+</p>
 
 #### Sampling from latent space: 
 ```
@@ -141,7 +157,44 @@ for sample in samples:
   plt.show()
   clear_output(wait=True)
 ```
-RESULTS //////////
+<p float="left">
+  <img
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/28bbbc44-31b5-4104-a928-27146acc9c40"
+    title="sample1ConvolutionalVAE"
+    style="display: inline-block; margin: 0 auto; width: 15%"
+    align="center" 
+    height=15%
+  >
+  <img
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/71497929-1a51-4c36-bd47-8c405207d69e"
+    title="sample2ConvolutionalVAE"
+    style="display: inline-block; margin: 0 auto; width: 15%"
+    align="center" 
+    height=15%
+  >
+  <img
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/f60babad-6bbc-40cb-a4d3-da721480c1bd"
+    title="sample3ConvolutionalVAE"
+    style="display: inline-block; margin: 0 auto; width: 15%"
+    align="center" 
+    height=15%
+  >
+  <img
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/93779b79-bfaa-4674-989a-40eb818f9dcd"
+    title="sample4ConvolutionalVAE"
+    style="display: inline-block; margin: 0 auto; width: 15%"
+    align="center" 
+    height=15%
+  >
+  <img
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/3eeeaea7-3de5-4b96-8921-2cc47e7de40a"
+    title="sample5ConvolutionalVAE"
+    style="display: inline-block; margin: 0 auto; width: 15%"
+    align="center" 
+    height=15%
+  >
+</p>
+
 
 ### Convolutional VariationalAutoEncoder 
 Key observation: in encoder, when one convolves input, immediately increase the number of *out_channels* in the very first convolutional layer, to have better resuls. Doing *in_channels=1, out_channels=32* gives significantly better results, than gradually increasing number of channels *in_channels=1, out_channels=3*. Scheduler is not helping in here.\
