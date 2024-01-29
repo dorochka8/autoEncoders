@@ -25,7 +25,7 @@ In RESULTS section provided SETUPs for models, results of training (train loss p
 |mean loss| 0.0243  |     0.0192     |     0.0172    | 0.0331 |   **0.0039**  |
 |**Variational Auto Encoders**|
 |model    | Vanilla | Convolutional |     Graph     |        |           |
-|mean loss| 0.0000  |    513.2197   |     0.0000    | 0.0000 |   0.0000  |
+|mean loss| 0.0000  |    415.2351   |     0.0000    | 0.0000 |   0.0000  |
 
 ## Results
 ### Vanilla AutoEncoder 
@@ -134,27 +134,22 @@ Also the validity of MSE was increased 5 times.  All the experiments were done o
 
 ### Convolutional VariationalAutoEncoder 
 Key observation: in encoder, when one convolves input, immediately increase the number of *out_channels* in the very first convolutional layer, to have better resuls. Doing *in_channels=1, out_channels=32* gives significantly better results, than gradually increasing number of channels *in_channels=1, out_channels=3*. Scheduler is not helping in here.\
-Evaluation **MSE 513.2197**. input_size=1, hidden_size=256, epochs=20. 
+Evaluation **MSE 415.2351**. input_size=1, batch_size=125, hidden_size=32, epochs=20. 
 <p float="left">
   <img
-    src="https://github.com/dorochka8/autoEncoders/assets/97133490/0b82e05c-47d8-43d1-987e-8d8dc353f162"
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/2a0b1512-cfb8-4477-b642-75a079748af3"
     title="TrainLossConvolutionalVAE"
     style="display: inline-block; margin: 0 auto; width: 45%"
     align="center" 
     height=45%
   >
   <img
-    src="https://github.com/dorochka8/autoEncoders/assets/97133490/8cca772c-a6fa-4e86-a2f5-c138b6d04b03"
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/3fa6dc37-236f-4b25-ae65-7dfafb2bbf94"
     title="ExampleFromEvaluationConvolutionalVAE"
     style="display: inline-block; margin: 0 auto; width: 45%"
     align="center" 
     height=45%
   >
 </p>
-
-
-
- 
-
 
 
