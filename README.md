@@ -3,16 +3,21 @@ from Vanilla to Graph AutoEncoder
 
 
 ## Overview
-Models are in **encoders** folder. Train loop, evaluation and sampling (VAE, gVAE) in **main.py**. \
-To show the differences between models, class "Sneaker" was chosen as an example. Models (except VAE) trained 1 epoch with default settings of `torch.optim.Adam()` optimizer and `nn.MSELoss()` loss. 
 
-In RESULTS section provided SETUPs for models, results of training and evaluating, examples of reconstructing images while training, key observations and more. The results of the experiments are written in double manner:
-**without | with** transforms of the dataset images, where transforms are: 
+Used FashionMNIST, default train_test_split, val_size from test split 0.8. Models are in **encoders** folder. Train loop, evaluation and sampling (AE, VAE) in **main.py**. 
+### AE
+To show the differences between models, class "Sneaker" was chosen as an example. Models are trained 1 epoch with default settings of `torch.optim.Adam()` optimizer and `nn.MSELoss()` loss. The results of the experiments are written in double manner:
+**without | with** transforms of the dataset, where transforms are: 
 ```
 transform = transforms.Compose([transforms.ToTensor(),
                                 transforms.Normalize(mean=0, std=1),
                                ])
 ```
+### VAE
+To show the differences between models, class "Sandal" was chosen as an example. Models are trained 20 epoch with default settings of `torch.optim.Adam()` optimizer and `nn.MSELoss() + KLD` loss. The results of the experiments are provided for the transformed dataset.
+
+In RESULTS section provided SETUPs for models, results of training (train loss plot) and evaluating, examples of reconstructing images while evaluating, key observations and more. 
+
 ### Results overview 
 |**Auto Encoders**||||||
 |:---:    | :---:   |      :---:     |    :---:      |  :---: |      :---:    |
@@ -20,12 +25,7 @@ transform = transforms.Compose([transforms.ToTensor(),
 |mean loss| 0.0243  |     0.0192     |     0.0172    | 0.0331 |   **0.0039**  |
 |**Variational Auto Encoders**|
 |model    | Vanilla | Convolutional |     Graph     |        |           |
-|mean loss| 0.0000  |    0.0000     |     0.0000    | 0.0000 |   0.0000  |
-
-
-
-## Dataset
-Used FashionMNIST, default train_test_split, val_size from test split 0.8. 
+|mean loss| 0.0000  |    513.2197   |     0.0000    | 0.0000 |   0.0000  |
 
 ## Results
 ### Vanilla AutoEncoder 
@@ -133,10 +133,24 @@ Also the validity of MSE was increased 5 times.  All the experiments were done o
 
 
 ### Convolutional VariationalAutoEncoder 
-Key observation: in encoder, when one convolves input, immediately increase the number of *out_channels* in the very first convolutional layer, to have better resuls. Doing *in_channels=1, out_channels=16* gives significantly better results, than *in_channels=1, out_channels=3*. Scheduler is not helping in here.\
-Evaluation **MSE 0.0000**. input_size=1, hidden_size=256, epochs=20. 
-
-
+Key observation: in encoder, when one convolves input, immediately increase the number of *out_channels* in the very first convolutional layer, to have better resuls. Doing *in_channels=1, out_channels=32* gives significantly better results, than gradually increasing number of channels *in_channels=1, out_channels=3*. Scheduler is not helping in here.\
+Evaluation **MSE 513.2197**. input_size=1, hidden_size=256, epochs=20. 
+<p float="left">
+  <img
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/0b82e05c-47d8-43d1-987e-8d8dc353f162"
+    title="TrainLossConvolutionalVAE"
+    style="display: inline-block; margin: 0 auto; width: 45%"
+    align="center" 
+    height=45%
+  >
+  <img
+    src="https://github.com/dorochka8/autoEncoders/assets/97133490/8cca772c-a6fa-4e86-a2f5-c138b6d04b03"
+    title="ExampleFromEvaluationConvolutionalVAE"
+    style="display: inline-block; margin: 0 auto; width: 45%"
+    align="center" 
+    height=45%
+  >
+</p>
 
 
 
