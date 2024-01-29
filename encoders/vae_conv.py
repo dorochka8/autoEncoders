@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn 
 
-class VAE(nn.Module):
+class ConvVAE(nn.Module):
   def __init__(self, in_channels, latent_space, batch_size):
     super().__init__()
     self.origin_shape = None
