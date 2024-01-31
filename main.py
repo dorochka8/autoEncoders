@@ -1,25 +1,43 @@
 import torch 
-import torch.nn a nn
+import torch.nn as nn
 import torchvision
 import matplotlib.pyplot as plt
 from IPython.display import clear_output
 
 
 def train(model, 
-          trainer, 
+          train_data, 
           optimizer,
           loss_fn, 
           mode='any', 
-          validator=None, 
+          val_data=None, 
           epochs=None,     # for batched data
           batch_size=None  # to flatten input in loss function in vanilla VAE
          ):
+
   """
-  mode: 
-        --- any ---- if vanilla AE, multilayer AE, convolutional AE, denoising AE (default)
-        -- sparse -- if sparse AE (add regularization)
-        --- vae ---- if any variational AE
+  Train a given model using the specified parameters and data.
+    
+  Parameters:
+  - model (torch.nn.Module): The model to be trained, typically an instance from the 'encoder' folder.
+  - train_data (torchvision.datasets.FashionMNIST() or torch.utils.data.DataLoader()): The training data. If using batched data, 
+                                                                                       provide a DataLoader object; otherwise, a Dataset object can be supplied.
+  - optimizer (torch.optim.Adam()): The optimization algorithm.
+  - loss_fn: The loss function. For Autoencoders (AE), use nn.MSELoss(). 
+             For Variational Autoencoders (VAE), this should be None, and vae_loss_fn from this module will be used instead.
+  - mode: 
+        'any' (default): Use for vanilla AE, multilayer AE, convolutional AE, or denoising AE.
+        'sparse'       : Use for sparse AE, which includes additional regularization in the loss.
+        'vae'          : Use for any variational AE, which will require a custom loss function.
+  - val_data (torchvision.datasets.FashionMNIST() or torch.utils.data.DataLoader()): The validation data. If using batched data, 
+                                                                                     provide a DataLoader object; otherwise, a Dataset object can be supplied
+  - epochs (int): The number of training epochs, specifically for batched data. A typical value might be 20.
+  - batch_size (int): The batch size to be used during training. Only specify this if your loss function requires input flattening, as in a vanilla VAE.
+
+  Returns:
+  total_loss: The history of losses while training.
   """
+                   
   device = 'cuda' if torch.cuda.is_available() else 'cpu'
   
   total_loss = []
@@ -30,7 +48,7 @@ def train(model,
       epoch_loss = 0.0
      
       # training
-      for i, batch in enumerate(trainer):
+      for i, batch in enumerate(train_data):
         optimizer.zero_grad()
         data = batch[0].type(torch.float).to(device)
         decoded_data, mu, log_var = model(data)
@@ -56,7 +74,7 @@ def train(model,
       mean_acc =  []
       with torch.no_grad():
         model.eval()
-        for j, batch in enumerate(validator):
+        for j, batch in enumerate(val_data):
           x, y = batch[0].type(torch.float).to(device), batch[1]
           decoded_data_val, mu_val, log_var_val = model(x)
           
@@ -75,7 +93,7 @@ def train(model,
       print(f'Loss on validation: {sum(mean_acc):.5f}\n')
      
   else:
-    for x, y in trainer:
+    for x, y in train_data:
       optimizer.zero_grad()
       x = torch.squeeze(x).type(torch.float)
       output = model(x)
@@ -95,7 +113,7 @@ def train(model,
 
 
 def eval(model, validator, loss_fn):
-  total = len(val)
+  total = len(validator)
   iter, mean_acc = 0, []
   with torch.no_grad():
     model.eval()
