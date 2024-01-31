@@ -45,7 +45,7 @@ In RESULTS section provided SETUPs for models, results of training (train loss p
 ## AutoEncoders 
 ### Vanilla AutoEncoder 
 **Evaluation**: MSE **1527.023 | 0.0243**. \
-**Configuration**: hidden_size=64, train_mode='any'.
+**Configuration**: input_size=784, hidden_size=64, output_size=784, optimizer=torch.optim.Adam(), loss_fn=nn.MSELoss(), mode='any'.
 
 <p float="left">
   <img
@@ -66,7 +66,7 @@ In RESULTS section provided SETUPs for models, results of training (train loss p
 
 ### Multilayer AutoEncoder 
 **Evaluation**: MSE **1268.625 | 0.0192**. \
-**Configuration**: hidden_size=128, coder_size=64, train_mode='any'.
+**Configuration**: input_size=784, hidden_size=128, coder_size=64, optimizer=torch.optim.Adam(), loss_fn=nn.MSELoss(), mode='any', 
 
 <p float="left">
 <img
@@ -88,7 +88,7 @@ In RESULTS section provided SETUPs for models, results of training (train loss p
 ### Convolutional AutoEncoder 
 It was made quite simple. Used only `nn.Conv2d`, and `nn.MaxPool2d` and `nn.Upsample` for encoder and decoder respectively. \
 **Evaluation**: MSE **1369.393 | 0.0172**. \
-**Configuration**: input_size=1, train_mode='any'.
+**Configuration**: input_size=1, optimizer=torch.optim.Adam(), loss_fn=nn.MSELoss(), mode='any'.
 
 <p float="left">
   <img
@@ -109,7 +109,7 @@ It was made quite simple. Used only `nn.Conv2d`, and `nn.MaxPool2d` and `nn.Upsa
 
 ### Sparse AutoEncoder 
 **Evaluation**: MSE **1457.481 | 0.0331**. \
-**Configuration**: l1_coef=10e-5, hidden_size=64, train_mode='sparse'.
+**Configuration**: input_size=784, hidden_size=64, output_size=784, coef_l1=10e-5, optimizer=torch.optim.Adam(), loss_fn=nn.MSELoss(), mode='sparse'.
 
 <p float="left">
   <img
@@ -130,7 +130,7 @@ It was made quite simple. Used only `nn.Conv2d`, and `nn.MaxPool2d` and `nn.Upsa
 
 ### Denoising AutoEncoder 
 **Evaluation**: **MSE 270.227 | 0.0039**. \
-**Configuration**: input_size=1, train_mode='any'.
+**Configuration**: input_size=1, optimizer=torch.optim.Adam(), loss_fn=nn.MSELoss(), mode='any'.
 
 <p float="left">
   <img
@@ -154,9 +154,14 @@ Added KL divergence to the total loss (acc. to https://arxiv.org/pdf/1312.6114.p
 ```
   KLD = -0.5 * torch.sum(1 + log_var - mu.pow(2) - log_var.exp())
 ```
+Do the train and validation loaders for the fashionMNIST dataset:
+```
+fashionMNIST_train_loader = torch.utils.data.DataLoader(fashionMNIST_train, batch_size=batch_size, shuffle=True)
+fashionMNIST_val_loader   = torch.utils.data.DataLoader(fashionMNIST_val,   batch_size=batch_size, shuffle=False)
+```
 All the experiments were done on normalized data, and another train function for batched data. \
 **Evaluation**: **MSE 896.8881**. \
-**Configuration**: input_size=784, batch_size=125, hidden_size=32, epochs=20. 
+**Configuration**: in_features=784, latent_space=32, optimizer=torch.optim.Adam(), loss_fn=None, mode='vae', epochs=20, batch_size=125. 
 
 <p float="left">
   <img
@@ -226,7 +231,7 @@ for sample in samples:
 ### Convolutional VariationalAutoEncoder 
 Key observation: in encoder, when one convolves input, immediately increase the number of *out_channels* in the very first convolutional layer, to have better resuls. Doing *in_channels=1, out_channels=32* gives significantly better results, than gradually increasing number of channels *in_channels=1, out_channels=3*. Scheduler is not helping in here.\
 **Evaluation**: **MSE 415.2351**. \
-**Configuration**: input_size=1, batch_size=125, hidden_size=32, epochs=20. 
+**Configuration**: in_channels=1, latent_space=32, optimizer=torch.optim.Adam(), loss_fn=None, mode='vae', epochs=20, batch_size=125. 
 
 <p float="left">
   <img
