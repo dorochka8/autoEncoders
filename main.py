@@ -54,18 +54,26 @@ def train(model,
         decoded_data, mu, log_var = model(data)
         
         if decoded_data.shape[1] == data.size(2) * data.size(3):
-          loss = loss_fn(data, decoded_data, mu, log_var, flatten=True, batch_size=batch_size)
+          loss = vae_loss_fn(data, decoded_data, mu, log_var, flatten=True, batch_size=batch_size)
         else:
-          loss = loss_fn(data, decoded_data, mu, log_var)
+          loss = vae_loss_fn(data, decoded_data, mu, log_var)
           
         epoch_loss += loss.item() 
         total_loss.append(loss.item())
         if (i % 500) == 0:
-          drawing(data[0, 0, :, :].reshape(28, 28).cpu().detach().numpy(),
-                  batch[1][0].item(),
-                  decoded_data[0, 0, :, :].reshape(28, 28).cpu().detach().numpy(),
-                  loss.item(),
-                  wait=False)
+          if decoded_data.shape[1] == data.size(2) * data.size(3):
+            drawing(data[0, 0, :, :].reshape(28, 28).cpu().detach().numpy(),
+                    batch[1][0].item(),
+                    decoded_data[0, :].reshape(28, 28).cpu().detach().numpy(),
+                    loss.item(),
+                    wait=False)
+          else:
+            drawing(data[0, 0, :, :].reshape(28, 28).cpu().detach().numpy(),
+                    batch[1][0].item(),
+                    decoded_data[0, 0, :, :].reshape(28, 28).cpu().detach().numpy(),
+                    loss.item(),
+                    wait=False)
+                    
         loss.backward()
         optimizer.step()
       print(f'Loss on train: \tepoch {epoch+1} / {epochs}: \tMSE_loss: {epoch_loss:.5f}')
@@ -79,17 +87,24 @@ def train(model,
           decoded_data_val, mu_val, log_var_val = model(x)
           
           if decoded_data.shape[1] == data.size(2) * data.size(3):
-            loss = loss_fn(data, decoded_data, mu, log_var, flatten=True, batch_size=batch_size)
+            loss = vae_loss_fn(data, decoded_data, mu, log_var, flatten=True, batch_size=batch_size)
           else:
-            loss = loss_fn(data, decoded_data, mu, log_var)
+            loss = vae_loss_fn(data, decoded_data, mu, log_var)
         
           mean_acc.append(loss.item())
           if (j % 200) == 0:
-            drawing(x[0, 0, :, :].reshape(28, 28).cpu().detach().numpy(),
-                    y[0].item(),
-                    decoded_data_val[0, 0, :, :].reshape(28, 28).cpu().detach().numpy(),
-                    loss.item(),
-                    wait=False)
+            if decoded_data.shape[1] == data.size(2) * data.size(3):
+              drawing(data[0, 0, :, :].reshape(28, 28).cpu().detach().numpy(),
+                      batch[1][0].item(),
+                      decoded_data[0, :].reshape(28, 28).cpu().detach().numpy(),
+                      loss.item(),
+                      wait=False)
+            else:
+              drawing(x[0, 0, :, :].reshape(28, 28).cpu().detach().numpy(),
+                      y[0].item(),
+                      decoded_data_val[0, 0, :, :].reshape(28, 28).cpu().detach().numpy(),
+                      loss.item(),
+                      wait=False)
       print(f'Loss on validation: {sum(mean_acc):.5f}\n')
      
   else:
@@ -135,7 +150,7 @@ def eval(model, validator, loss_fn):
 cton = {i:item for i, item in enumerate(torchvision.datasets.FashionMNIST.classes)}
 
 
-def drawing(x, y, output, acc):
+def drawing(x, y, output, acc, wait=True):
   plt.suptitle(f'Class: {cton[y]}  \nMSE: {acc:.3f}')
   plt.subplot(1, 2, 1)
   plt.imshow(x.reshape(28, 28))
@@ -145,8 +160,9 @@ def drawing(x, y, output, acc):
   plt.imshow(output.reshape(28, 28))
   plt.title(f'Restored')
   plt.show()
-  
-  clear_output(wait=True)
+ 
+  if wait: 
+    clear_output(wait=True)
 
 
 def vae_loss_fn(x, decoded_data, mu, log_var, flatten=False, batch_size=None):
