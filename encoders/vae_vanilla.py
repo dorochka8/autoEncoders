@@ -7,6 +7,8 @@ class VAE(nn.Module):
   def __init__(self, in_features, latent_space, batch_size):
     super().__init__()
     self.latent_space = latent_space
+    self.batch_size   = batch_size
+    
     self.encoder = nn.Sequential(
         nn.Linear(in_features=in_features, out_features=500),
         nn.ReLU())
@@ -28,7 +30,7 @@ class VAE(nn.Module):
 
 
   def forward(self, x):
-    x = x.view(batch_size, -1)
+    x = x.view(self.batch_size, -1)
 
     # encodoer
     x = self.encoder(x)                      # batch_size x 500
