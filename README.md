@@ -1,7 +1,14 @@
 # AutoEncoders: From Vanilla to Convolutional VAE
 
 ## Overview
-This project explores the abilities of AutoEncoders, using FashionMNIST dataset with default train_test_split, and where the size of the validation part is a 0.8th part from test split. Models are organized in **encoders** folder, with the training loop, evaluation and sampling in **main.py**. 
+This project explores the abilities of AutoEncoders, using FashionMNIST dataset with default train_test_split, and where the size of the validation part is a 0.8th part from test split.
+```
+fashionMNIST_train    = torchvision.datasets.FashionMNIST(root=root_dir, train=True,  download=True, transform=transform)
+fashionMNIST_val_test = torchvision.datasets.FashionMNIST(root=root_dir, train=False, download=True, transform=transform)
+
+fashionMNIST_val, _ = sklearn.model_selection.train_test_split(fashionMNIST_val_test, test_size=0.2)
+```
+Models are organized in **encoders** folder, with the training loop, evaluation and sampling in **main.py**. 
 ### AE
 I choose class "Sneaker" to show the differences between models. The models were trained for 1 epoch with default settings of `torch.optim.Adam()` optimizer and `nn.MSELoss()` loss. The results of the experiments are written in two scenarios: \
 **without | with** transforms of the dataset, where transforms are: 
