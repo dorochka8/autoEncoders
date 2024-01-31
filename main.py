@@ -11,8 +11,8 @@ def train(model,
           loss_fn, 
           mode='any', 
           val_data=None, 
-          epochs=None,     # for batched data
-          batch_size=None  # to flatten input in loss function in vanilla VAE
+          epochs=None,     
+          batch_size=None 
          ):
 
   """
