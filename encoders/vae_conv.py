@@ -6,6 +6,7 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 class ConvVAE(nn.Module):
   def __init__(self, in_channels, latent_space, batch_size):
     super().__init__()
+    self.batch_size = batch_size
     self.origin_shape = None
     self.idx1 = None
     self.idx2 = None
@@ -62,7 +63,7 @@ class ConvVAE(nn.Module):
     self.idx2 = idx2
 
     # flatten and reshape before mu & log_var
-    x = encoded.view(batch_size, -1)         # batch_size x 512
+    x = encoded.view(self.batch_size, -1)         # batch_size x 512
     x = self.bottleneck1(x)                  # batch_size x latent_space
     
     # mu & log_var
